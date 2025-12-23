@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CHEM QUEST | Chemistry Event</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+/* ===== NEON CHEMISTRY LAB BACKGROUND ===== */
+body, html {
+    background-color: #0a0a1a;
+    overflow-x:hidden;
+}
+
+/* Background image */
+.background-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('1000065711.jpg') no-repeat center center;
+    background-size: cover;
+    z-index: 0;
+}
+
+/* Liquid drop overlay */
+.liquid-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* Falling drops */
+.drop {
+    position: absolute;
+    width: 4px;
+    height: 15px;
+    background: linear-gradient(to bottom, transparent, #00ffff);
+    border-radius: 2px;
+    animation: fall linear infinite;
+}
+
+@keyframes fall {
+    0% { transform: translateY(-100px); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { transform: translateY(100vh); opacity: 0; }
+}
+
+/* ===== FLOATING MOLECULES ===== */
+.molecule{
+  position:fixed;
+  bottom:-120px;
+  font-size:26px;
+  animation: floatUp linear infinite;
+  filter:drop-shadow(0 0 10px currentColor);
+  z-index:2;
+}
+
+@keyframes floatUp{
+  0%{transform:translateY(0) scale(1);opacity:0;}
+  20%{opacity:0.9;}
+  100%{transform:translateY(-130vh) translateX(80px) scale(1.6);opacity:0;}
+}
+
+.m1{left:3%;animation-duration:10s;color:#00ffff;}
+.m2{left:8%;animation-duration:13s;color:#ff00ff;font-size:20px;}
+.m3{left:13%;animation-duration:9s;color:#bd00ff;}
+.m4{left:18%;animation-duration:11s;color:#ffec00;font-size:32px;}
+.m5{left:23%;animation-duration:10s;color:#ff00ff;}
+.m6{left:28%;animation-duration:16s;color:#00ffff;font-size:22px;}
+.m7{left:32%;animation-duration:13s;color:#ffec00;}
+.m8{left:38px;%;animation-duration:18s;color:#bd00ff;}
+.m9{left:43%;animation-duration:15s;color:#bd00ff;}
+.m10{left:48%;animation-duration:16s;color:#00ffff;font-size:22px;}
+.m11{left:53%;animation-duration:13s;color:#ffec00;}
+.m12{left:58%;animation-duration:11s;color:#bd00ff;}
+.m13{left:63%;animation-duration:12s;color:#00ff66;}
+.m14{left:68%;animation-duration:8s;color:#ff009d;}
+.m15{left:72%;animation-duration:13s;color:#23c0c9;}
+.m16{left:78%;animation-duration:9s;color:#b7ff00;}
+.m17{left:83%;animation-duration:10s;color:#ff00f2;}
+.m18{left:88%;animation-duration:13s;color:#0088ff;}
+.m19{left:92%;animation-duration:9s;color:#fbff00;}
+.m20{left:100%;animation-duration:5s;color:#00ff88;}
+/* Keep content above background */
+header,section,footer{
+  position:relative;
+  z-index:3;
+}
+
+/* ===== HEADER ===== */
+header{
+  text-align:center;
+  padding:80px 20px;
+}
+
+header h1{
+  font-size:3.8rem;
+  background: linear-gradient(90deg,#ffffff,#ff00dd);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+  text-shadow:0 0 25px rgba(255,255,255,0.5);
+}
+
+header h2{
+  margin:12px 0;
+  font-weight:400;
+  color:#f0f0f0;
+}
+
+header p{
+  margin:6px 0;
+  color:#e0e0e0;
+}
+
+header button{
+  margin:20px 10px;
+  padding:12px 30px;
+  border:none;
+  border-radius:30px;
+  font-weight:600;
+  cursor:pointer;
+  color:#000;
+  background:#00ffd5;
+}
+
+/* ===== SECTIONS ===== */
+section{
+  max-width:1100px;
+  margin:auto;
+  padding:70px 20px;
+}
+
+.section-title{
+  text-align:center;
+  font-size:2.3rem;
+  margin-bottom:50px;
+  color:#fffae6;
+}
+
+/* ===== DIGNITARIES ===== */
+.person{
+  display:grid;
+  grid-template-columns:220px 1fr;
+  gap:30px;
+  margin-bottom:40px;
+  background:rgba(255,192,203,0.15); /* soft pink glass */
+  padding:25px;
+  border-radius:20px;
+  backdrop-filter:blur(6px);
+  align-items:center;
+
+  /* Pink neon border for the card only */
+  border:2px solid #00ffff;
+
+  /* Pink neon glow for the card */
+  box-shadow:
+    0 0 10px #00ffff,
+    0 0 25px rgba(0,255,255,0.5),
+    0 0 50px rgba(0,255,255,0.3);
+
+  transition:0.3s ease;
+}
+
+/* Hover glow for card */
+.person:hover{
+  box-shadow:
+    0 0 15px #00ffff,
+    0 0 35px rgba(0,255,255,0.6),
+    0 0 70px rgba(0,255,255,0.4);
+}
+
+/* Image remains original */
+.person img{
+  width:180px;
+  height:220px;
+  object-fit:cover;
+  border-radius:15px;
+  border:3px solid #ff69b4;
+  box-shadow:
+    0 0 8px #ff69b4,
+    0 0 20px rgba(255,105,180,0.5),
+    0 0 40px rgba(255,105,180,0.3); /* KEEP ORIGINAL BORDER COLOR */
+}
+
+/* Name gradient stays intact */
+.person-name{
+  margin-top:12px;
+  font-size:1.3rem;
+  font-weight:700;
+  background:linear-gradient(90deg,#00ffd5,#ff9de2);
+  -webkit-background-clip:text;
+  -webkit-text-fill-color:transparent;
+}
+
+/* Paragraph text set to white */
+.person p{
+  font-size:0.95rem;
+  line-height:1.7;
+  color:#fff; /* white text */
+}
+
+
+/* ===== COMPETITIONS ===== */
+
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:30px;
+}
+
+.card{
+  background:rgba(255,255,255,0.15);
+  padding:25px;
+  border-radius:20px;
+  backdrop-filter:blur(6px);
+  transition:0.3s;
+  color: #fff; /* White text inside card */
+}
+
+.card:hover{
+  transform:translateY(-6px);
+}
+
+.card h4{
+  font-size:1.3rem;
+  color:#00ffd5; /* Keep heading color as original */
+  margin-bottom:10px;
+}
+
+.card p{
+  font-size:0.95rem;
+  line-height:1.6;
+  margin-bottom:15px;
+  color: #fff; /* Paragraph text white */
+}
+
+.card button{
+  padding:10px 25px;
+  border:none;
+  border-radius:30px;
+  background:linear-gradient(45deg,#00ffd5,#ff9de2);
+  font-weight:600;
+  cursor:pointer;
+  color: #fff; /* Button text white */
+}
+
+/* ===== CONTACT ===== */
+.contact-box{
+  max-width:600px;
+  margin:auto;
+  background:rgba(255,192,203,0.15);
+  padding:30px;
+  border-radius:20px;
+  text-align:center;
+  color:#fff; /* White text */
+
+  border:2px solid #ff4fd8;
+  box-shadow: 0 0 10px #ff4fd8, 0 0 25px rgba(255,79,216,0.8), 0 0 50px rgba(255,79,216,0.6);
+  backdrop-filter: blur(8px);
+}
+
+footer{
+  background:#000;
+  text-align:center;
+  padding:20px;
+  color:#fff;
+}
+
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:768px){
+  .person{grid-template-columns:1fr;text-align:center;}
+  header h1{font-size:2.6rem;}
+}
+</style>
+</head>
+
+<body>
+
+<!-- NEON BACKGROUND AND DROPS -->
+<div class="background-container"></div>
+<div class="liquid-container" id="liquid-container"></div>
+
+<!-- FLOATING MOLECULES -->
+<div class="molecule m1">H₂O</div>
+<div class="molecule m2">🧴</div>
+<div class="molecule m3">🧹</div>
+<div class="molecule m4">🧪</div>
+<div class="molecule m5">🧊</div>
+<div class="molecule m6">CO₂</div>
+<div class="molecule m7">⚛</div>
+<div class="molecule m8">N₂</div>
+<div class="molecule m9">🧯</div>
+<div class="molecule m10">🔭</div>
+<div class="molecule m11">⚗</div>
+<div class="molecule m12">🧪</div>
+<div class="molecule m13">🧬</div>
+<div class="molecule m14">CO₂</div>
+<div class="molecule m15">🔬</div>
+<div class="molecule m16">H₂O</div>
+<div class="molecule m17">🧫</div>
+<div class="molecule m17">🧊</div>
+<div class="molecule m18">🧯</div>
+<div class="molecule m19">🧬</div>
+<div class="molecule m20">🔮</div>
+<div class="molecule m21">🧹</div>
+<div class="molecule m22">🫧</div>
+
+<header>
+  <h1>CHEM QUEST</h1>
+  <h2>Where Chemistry Meets Creativity</h2>
+  <p><strong>Aditya Degree College Women's, Gajuwaka</strong></p>
+  <p><strong>Date:</strong> 30th December 2025</p>
+
+  <button onclick="scrollToSection('dignitaries')">Dignitaries</button>
+  <button onclick="scrollToSection('competitions')">Competitions</button>
+</header>
+
+<!-- ===== DIGNITARIES SECTION ===== -->
+<section id="dignitaries">
+<h3 class="section-title">Dignitaries & Guests</h3>
+
+<div class="person">
+  <div class="person-left">
+    <img src="chairman.jpg">
+    <div class="person-name">Dr.N.Sesha Reddy<br>(Chairman)</div>
+  </div>
+  <p> Our Chairman, Dr. N Sesha Reddy, is a visionary leader who inspires and empowers us to achieve our full potential. His passion for education and commitment to excellence creates a nurturing environment where we can grow and thrive. He consistently strives to bring opportunities to every student, ensuring each one of us has the chance to succeed and reach our goals, guiding us towards a bright and successful future. </p>
+</div>
+
+<div class="person">
+  <div class="person-left">
+    <img src="secretary.jpg">
+    <div class="person-name">Dr.N.Suguna Reddy<br>(Secretary)</div>
+  </div>
+  <p> Our Secretary, N. Suguna Reddy, is a compassionate and inspiring leader who motivates every student to succeed. She's particularly dedicated to supporting girls' empowerment and growth, ensuring they have the resources and encouragement needed to excel in their academic and personal journeys. Her care and guidance play a significant role in helping students achieve their goals. </p>
+</div>
+
+
+<div class="person">
+  <div class="person-left">
+    <img src="director.jpg">
+    <div class="person-name">Dr.B.E.V.L.Naidu <br>(Director)</div>
+  </div>
+  <p> Our Director, B.E.V.L Naidu, is a dedicated and inspiring leader who consistently motivates us to strive for excellence in our academic and personal lives. He fosters a supportive environment that encourages us to pursue our goals with confidence and determination, playing a pivotal role in our growth and success. </p>
+</div>
+
+<div class="person">
+  <div class="person-left">
+    <img src="principal.jpg">
+    <div class="person-name">Mr.P.Pradeep Kumar <br>(Principal)</div>
+  </div>
+  <p>  A kind and visionary leader who inspires us to excel. With his unwavering encouragement and motivation , he inspires us to strive for excellence. With his soft spoken yet firm approach , he drives our success and cares deeply for our future. He motivates us to participate in every competition, pushing us to discover our hidden talents and reach new heights.  He's a driving force behind our success, and we're truly fortunate to have a principal who invests his heart and efforts into our future.</p>
+</div>
+
+<div class="person">
+  <div class="person-left">
+    <img src="viceprincipal.jpg">
+    <div class="person-name">Mr.S.Srinivas<br>(Vice Principal)</div>
+  </div>
+  <p> A treasured figure , close to our hearts and always by our side. He's more than an administrator. He's a friend who supports us through all circumstances , offering steadfast support and guidance. He cheers us on every step of the way, making him an integral part of our journey. With his presence, we feel encouraged to chase our dreams, and his passion for our success is contagious. He's the one who shares our joys and helps us navigate challenges, making him an invaluable part of our lives.</p>
+</div>
+
+<div class="person">
+  <div class="person-left">
+    <img src="co-ed principal.jpg">
+    <div class="person-name">Mr.M.Satya Prakash<br>(Co-Ed Principal)</div>
+  </div>
+  <p> Mr.Sathya Prakash is a distinguished academic leader with a strong commitment to academic excellence, discipline, and holistic education. Under his esteemed leadership, the college provides an inclusive and value-based learning environment that empowers students to achieve success and serve society responsibly.</p>
+</div>
+
+<div class="person">
+  <div class="person-left">
+    <img src="hodcs.jpg">
+    <div class="person-name">Mr.B.V.P.N.Murthy<br>(HOD – Computer Science)</div>
+  </div>
+  <p>A dedicated and knowledgeable leader who sets high standards for us. As a computer faculty and head of the department, he's strict about academics and discipline, but his teaching style is engaging and approachable. He breaks down complex topics with ease, motivating us to excel in our field. His guidance helps us make informed decisions, and his passion for our growth makes him a respected mentor. He's the one who pushes us to be our best, both academically and personally.</p>
+</div>
+
+<div class="person">
+  <div class="person-left">
+    <img src="chem mam.jpg">
+    <div class="person-name">Mrs.M.Satya Suneetha<br>(HOD-Chemistry)</div>
+  </div>
+  <p>Our beloved chemistry lecturer is a shining star in our college. With her unwavering support and expert guidance, she empowers us to reach our full potential. Her passion for teaching and dedication to our growth make her an exceptional educator. She's a mentor, a friend, and a role model who inspires us to excel. Her kindness, patience, and encouragement create a nurturing environment where we thrive. She's truly a treasure, and we're fortunate to have her leading us on our academic journey.</p>
+</div>
+
+<div class="person">
+  <div class="person-left">
+    <img src="chiefguest.jpg">
+    <div class="person-name">Dr. __________<br>(Chief Guest)</div>
+  </div>
+  <p>Our Chief Guest, Raju Gorle, HR at Hetero company, is an inspiring example of rapid growth. Starting as a trainee just 3.5 years ago, he's now a key corporate professional, showcasing what's possible with dedication and hard work. Excellent in his field, he supports every person to grow in their life, making him a great motivator for students. His journey likely offers valuable lessons for us on seizing opportunities and excelling in careers.</p>
+</div>
+</section>
+
+<!-- ===== COMPETITIONS ===== -->
+<section id="competitions">
+<h3 class="section-title">Competitions & Rules</h3>
+
+<div class="cards">
+
+  <div class="card">
+    <h4>Brainy Bunch</h4>
+    <p>
+      • Questions are based on <b>basic Computer Science and Chemistry </b> and the quizmaster's decision will be final.<br>
+      • Each team must consist of <b>2 members </b> and only three teams are allowed from one class. .<br>
+      • Team must maintain discipline, and use of mobile phones are strictly prohibited.
+    </p>
+   <button onclick="window.open('https://forms.gle/Jkh24pUkdGBL7mnB9','_blank')">
+  Register
+</button>
+
+  </div>
+
+  <div class="card">
+    <h4>Word Play</h4>
+    <p>
+      • Words must be formed or explained using general knowledge–related terms.<br>
+      • Each team must consist of 2 members, and only three teams are allowed from one class.<br>
+      • Time limits must be strictly followed.
+    </p>
+    <button onclick="window.open('https://forms.gle/orMvD5qBUqu2KFwW9','_blank')">
+  Register
+</button>
+
+  </div>
+
+  <div class="card">
+    <h4>Best Out Of Waste</h4>
+    <p>
+      • Items used must be waste or recyclable materials only<br>
+      • Evaluation will be based on creativity, usefulness, and eco-friendliness.The final product should be useful, safe to handle, and clearly explained by the participants.<br>
+      • Each team must consist of 2 members, and only three teams are allowed from one class.
+    </p>
+    <button onclick="window.open('https://forms.gle/T8kvjhhVGUPFcjvy9','_blank')">
+  Register
+</button>
+
+  </div>
+
+  <div class="card">
+    <h4>Poster Presentation</h4>
+    <p>
+      • Topics should be related to Food Preservatives, Bio-Inorganic Chemistry, Pollution Control Methods, Chemistry in Daily Life, and Science Facts.<br>
+      • Maximum of <b>2 participants per team</b>.<br>
+      • Only <b>three teams</b> are allowed from one class.
+    </p>
+   <button onclick="window.open('https://forms.gle/vWUQWjizD9C8HyaUA','_blank')">
+  Register
+</button>
+
+  </div>
+
+  <div class="card">
+    <h4>Live Projects</h4>
+    <p>
+      • Projects should demonstrate practical application of chemistry concepts.<br>
+      • Participants must clearly explain the objective, method, and outcome.<br>
+      • Each team can consists of either 2 or 3 members, and only three teams are allowed from one class.
+    </p>
+   <button onclick="window.open('https://forms.gle/P5Jg1TzgpyBp97LN7','_blank')">
+  Register
+</button>
+
+  </div>
+
+</div>
+</section>
+<!-- ===== CONTACT ===== -->
+<section id="contact">
+<h3 class="section-title">Contact Us</h3>
+<div class="contact-box">
+  <p><strong>Faculty Coordinator:</strong><br>Satya Sunitha Mam<br>📞 9876543210</p> <br>
+  <p><strong>Student Coordinators:</strong><br>Sameera<br>📞 9603795416</p><br>
+  <p>Sravanthi<br>📞 9985732087</p><br>
+</div>
+</section>
+
+<footer>
+© 2025 CHEM QUEST | Aditya Degree College, Gajuwaka
+Organized by Department of Chemistry & Computer Science
+</footer>
+
+<script>
+function scrollToSection(id){
+  document.getElementById(id).scrollIntoView({behavior:'smooth'});
+}
+
+function openForm(){
+  window.open("https://forms.gle/YOUR_GOOGLE_FORM_LINK","_blank");
+}
+
+/* ===== NEON DROP SCRIPT ===== */
+function createDrop() {
+    const container = document.getElementById('liquid-container');
+    const drop = document.createElement('div');
+    
+    const posX = Math.random() * window.innerWidth;
+    const duration = Math.random() * 2 + 1; 
+    const delay = Math.random() * 5;
+    
+    drop.classList.add('drop');
+    drop.style.left = posX + 'px';
+    drop.style.animationDuration = duration + 's';
+    drop.style.animationDelay = delay + 's';
+    
+    const colors = ['#00ffff', '#ff00ff', '#bd00ff', '#ffec00'];
+    const randomColor = colors[Math.floor(Math.random() * colors.length)];
+    drop.style.background = `linear-gradient(to bottom, transparent, ${randomColor})`;
+    drop.style.boxShadow = `0 0 10px ${randomColor}`;
+
+    container.appendChild(drop);
+
+    setTimeout(() => { drop.remove(); }, (duration + delay) * 1000);
+}
+
+setInterval(createDrop, 150);
+</script>
+
+</body>
+</html>
